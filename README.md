@@ -1,2 +1,1 @@
-# Docfin-
-App for a better doctor finance relationship 
+# Here are your Instructions
