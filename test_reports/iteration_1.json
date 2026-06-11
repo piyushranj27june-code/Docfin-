@@ -1,0 +1,50 @@
+{
+  "summary": "First MVP test of Doctor Finance AI (FastAPI + Motor + JWT + emergentintegrations Claude Sonnet 4.5 + Expo Router). Backend: 25/26 tests pass (1 test-side bug fixed: email lowercase assertion). All critical APIs (auth, expenses+AI categorize, loans+EMI, investments+SIP calc, India tax FY25-26 with 87A new-regime rebate <=12L and 4% old-regime cess, hospital revenue+leakage, productivity+stats, dashboard, seed/demo, AI insights via Claude Sonnet 4.5) verified end-to-end. Frontend: login screen renders, demo@doctor.com/demo1234 navigates to dashboard, all 5 bottom tabs (Home, Expenses, Planning, Hospital, AI Coach) render with seeded data — month spend ₹50.7K, EMI ₹52.1K, portfolio ₹2.84L, hospital revenue ₹9.77L, productivity 304 patients / 118.5h / 2.57 per hour. Loan EMI calculator computes correctly (₹39,052 for 45L @8.5% 240mo). AI Coach screen shows suggestion chips and input. No red-screen errors. No deprecated packages (expo-av/barcode-scanner/background-fetch) detected.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/auth/me without token", "issue": "Returns 403 (HTTPBearer default) instead of 401. Functional but inconsistent with HTTP semantics. Consider using auto_error=False + custom 401 raise."},
+      {"endpoint": "POST /api/seed/demo", "issue": "Demo user demo@doctor.com is not auto-created on server start. test_credentials.md says it is pre-seeded — verified data exists after manual login + seed, but if Mongo is wiped the account will not be recreated automatically. Recommend an on-startup hook to ensure-create the demo user."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Login", "issues": ["Sign In button uses label 'Sign In'; review request mentions 'Login' — copy is fine but doc/spec mismatch."]}
+    ],
+    "react_native_issues": [
+      {"component": "Pressable/TouchableOpacity (multiple)", "issue": "Console warning: 'props.pointerEvents is deprecated. Use style.pointerEvents'. Originates from react-native-web layer. Non-blocking but should be addressed in component props (likely on Pressable or animated overlays)."}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_backend_api.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/results.xml"
+  ],
+  "action_items": [
+    "(Minor) Replace prop-based pointerEvents with style.pointerEvents to silence react-native-web deprecation warning.",
+    "(Minor) Consider returning 401 (not 403) for missing bearer token on protected endpoints by using HTTPBearer(auto_error=False) and raising HTTPException(401).",
+    "(Minor) Add an idempotent demo-user bootstrap on backend startup so demo@doctor.com always exists per test_credentials.md (currently it relies on prior /api/auth/register being run)."
+  ],
+  "critical_code_review_comments": [
+    "server.py is 928 lines and is approaching the 700-line guideline ceiling. Consider splitting into modules: auth.py, expenses.py, loans.py, investments.py, tax.py, hospital.py, productivity.py, ai.py, dashboard.py, seed.py, and shared models/db helpers.",
+    "EXPENSE_CATEGORIES matching uses substring `in` which can mis-classify (e.g., 'Other' in 'Mother'). Use exact match only, fallback 'Other'.",
+    "All MongoDB queries correctly exclude `_id` projection — good.",
+    "Tax math verified: new-regime 87A rebate to ₹12L taxable working; old-regime 4% cess applied correctly (verified ₹4,13,400 on ₹20L gross w/ minimal deductions).",
+    "EMI formula verified against standard amortisation (₹13,215 for 10L @10% 120mo).",
+    "SIP future-value formula uses annuity-due `(1+r)` multiplier — yields ~₹50L for 10K/mo, 15y @12%. Acceptable for SIP-end-of-month interpretation may differ; ensure UI labels match.",
+    "AI categorization session_id is per-user (`categorize-{user_id}`) — that's fine but every expense reuses the same LLM session, growing context. Consider unique per-call session id to keep prompts stateless.",
+    "Frontend login successfully renders and authenticates; testIDs are well-named (login-email-input, login-password-input, login-submit-button). 109 testIDs detected across app — good test scaffolding."
+  ],
+  "updated_files": [
+    "/app/backend/tests/conftest.py (new)",
+    "/app/backend/tests/test_backend_api.py (new)"
+  ],
+  "success_rate": {"backend": "100% (25/25 executed, 1 skipped-dependency, 0 failed after fix)", "frontend": "100% of smoke flows (login + 5 tabs + EMI calc)"},
+  "seed_data_creation": "Used existing POST /api/seed/demo to populate demo@doctor.com (10 expenses, 2 loans, 3 investments, 6 months hospital revenue, 14 days productivity).",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend BASE_URL is https://medic-finance-ai.preview.emergentagent.com. Demo creds demo@doctor.com / demo1234 (lowercased server-side). HTTPBearer returns 403 not 401 for unauthenticated calls — both are acceptable in tests. AI/insights endpoint can take 5-15s — use 60s timeout. Frontend uses testID convention 'login-email-input', '...-submit-button', etc — refer to component source to find the right names rather than guessing.",
+  "rca_of_issue": "No critical issues. The single backend test failure was test-side (assertion didn't account for backend lowercasing emails) — fixed by lowercasing the generated test email."
+}
