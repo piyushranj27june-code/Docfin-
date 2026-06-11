@@ -1,6 +1,6 @@
 import { storage } from "@/src/utils/storage";
 
-const BASE = process.env.EXPO_PUBLIC_BACKEND_URL;
+const BASE = "https://docfin-nksl.onrender.com";
 const TOKEN_KEY = "doc_finance_token";
 
 async function getToken(): Promise<string | null> {
