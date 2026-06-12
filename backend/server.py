@@ -284,8 +284,6 @@ def _slab_tax(taxable: float, slabs) -> float:
 
 async def ai_chat(system_msg: str, user_text: str, session_id: str) -> str:
     return "AI assistant temporarily unavailable."
-    
-
 # ---------- Routes ----------
 
 @api_router.get("/")
