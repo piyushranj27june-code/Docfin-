@@ -1,6 +1,6 @@
 import { storage } from "@/src/utils/storage";
 
-const BASE = "https://docfin-nksl.onrender.com";
+const BASE = "https://docfin-app-production.up.railway.app";
 const TOKEN_KEY = "doc_finance_token";
 
 async function getToken(): Promise<string | null> {
