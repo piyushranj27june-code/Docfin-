@@ -284,7 +284,20 @@ def _slab_tax(taxable: float, slabs) -> float:
     return tax
 
 async def ai_chat(system_msg: str, user_text: str, session_id: str) -> str:
-    return "AI assistant temporarily unavailable."
+    api_key = os.getenv("GEMINI_API_KEY")
+
+    if not api_key:
+        return "Gemini API key not configured."
+
+    genai.configure(api_key=api_key)
+
+    model = genai.GenerativeModel("gemini-1.5-flash")
+
+    prompt = f"{system_msg}\n\n{user_text}"
+
+    response = model.generate_content(prompt)
+
+    return response.text
 # ---------- Routes ----------
 
 @api_router.get("/")
