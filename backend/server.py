@@ -284,15 +284,7 @@ def _slab_tax(taxable: float, slabs) -> float:
 
 async def ai_chat(system_msg: str, user_text: str, session_id: str) -> str:
     return "AI assistant temporarily unavailable."
-    """Call Claude Sonnet 4.5 via emergentintegrations."""
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
-    chat = LlmChat(
-        api_key=EMERGENT_LLM_KEY,
-        session_id=session_id,
-        system_message=system_msg,
-    ).with_model("anthropic", "claude-sonnet-4-5-20250929")
-    response = await chat.send_message(UserMessage(text=user_text))
-    return response if isinstance(response, str) else str(response)
+    
 
 # ---------- Routes ----------
 
