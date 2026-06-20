@@ -61,7 +61,7 @@ export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [seedingDemo, setSeedingDemo] = useState(false);
+  
 
   const load = useCallback(async () => {
     try {
