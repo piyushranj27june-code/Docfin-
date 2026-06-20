@@ -20,8 +20,8 @@ import { Logo } from "@/src/components/logo";
 export default function LoginScreen() {
   const { login } = useAuth();
   const router = useRouter();
-  const [email, setEmail] = useState("demo@doctor.com");
-  const [password, setPassword] = useState("demo1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
