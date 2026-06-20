@@ -291,7 +291,7 @@ async def ai_chat(system_msg: str, user_text: str, session_id: str) -> str:
 
     genai.configure(api_key=api_key)
 
-    model = genai.GenerativeModel("gemini-1.5-flash")
+    model = genai.GenerativeModel("gemini-2.5-flash")
 
     prompt = f"{system_msg}\n\n{user_text}"
 
