@@ -48,12 +48,7 @@ export default function RegisterScreen() {
         specialty: specialty.trim() || "General Practitioner",
         hospital: hospital.trim(),
       });
-      // Auto-seed demo data so new users see a populated dashboard
-      try {
-        await api("/seed/demo", { method: "POST" });
-      } catch {
-        // non-blocking
-      }
+      // Demo seeding removed for production
       router.replace("/(tabs)/dashboard");
     } catch (e: any) {
       setError(e?.message || "Registration failed");
