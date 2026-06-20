@@ -89,7 +89,7 @@ export default function Dashboard() {
   const seedDemo = async () => {
     setSeedingDemo(true);
     try {
-      await api("/seed/demo", { method: "POST" });
+     
       await load();
     } finally {
       setSeedingDemo(false);
