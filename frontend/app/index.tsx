@@ -49,7 +49,7 @@ const FEATURES: Feature[] = [
     icon: "file-text",
     title: "AI Expense Categorisation",
     description:
-      "Snap or type an expense — Claude Sonnet tags it across 14 doctor-specific categories instantly.",
+      "Snap or type an expense — DocfinAI tags it across 14 doctor-specific categories instantly.",
     tint: dark.brand,
   },
   {
