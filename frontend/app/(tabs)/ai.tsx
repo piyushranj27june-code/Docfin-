@@ -76,7 +76,7 @@ export default function AICoachScreen() {
         </View>
         <View style={{ flex: 1, marginLeft: spacing.sm }}>
           <Text style={styles.title}>AI Finance Coach</Text>
-          <Text style={styles.subtitle}>Powered by Claude · personalized to your data</Text>
+          <Text style={styles.subtitle}>Powered by DocfinAI · personalized to your data</Text>
         </View>
       </View>
 
