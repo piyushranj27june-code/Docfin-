@@ -119,7 +119,6 @@ export default function LoginScreen() {
 
           <View style={styles.demoHint}>
             <Text style={styles.demoText}>
-              Demo: demo@doctor.com / demo1234
             </Text>
           </View>
         </ScrollView>
