@@ -269,21 +269,7 @@ export default function Dashboard() {
           >
             <Text style={styles.quickBtnText}>+ Add Expense</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            testID="seed-demo-button"
-            style={[styles.quickBtn, { backgroundColor: colors.brandLight }]}
-            onPress={seedDemo}
-            disabled={seedingDemo}
-            activeOpacity={0.85}
-          >
-            {seedingDemo ? (
-              <ActivityIndicator color={colors.brand} />
-            ) : (
-              <Text style={[styles.quickBtnText, { color: colors.brand }]}>
-                Load Demo Data
-              </Text>
-            )}
-          </TouchableOpacity>
+          
         </View>
 
         <View style={{ height: spacing.lg }} />
