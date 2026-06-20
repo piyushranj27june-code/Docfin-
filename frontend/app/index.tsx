@@ -160,6 +160,7 @@ const PLANS: Plan[] = [
 export default function Index() {
   const { user, loading } = useAuth();
   const router = useRouter();
+
   const { width } = useWindowDimensions();
   const [showLanding, setShowLanding] = useState(false);
   const [cycle, setCycle] = useState<Cycle>("annual");
@@ -167,7 +168,7 @@ export default function Index() {
   useEffect(() => {
     if (loading) return;
     if (user) router.replace("/(tabs)/dashboard");
-    else setShowLanding(true);
+    else router.replace("/login");
   }, [user, loading, router]);
 
   if (loading || (!showLanding && !user)) {
