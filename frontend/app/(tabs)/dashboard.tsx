@@ -86,15 +86,7 @@ export default function Dashboard() {
     setRefreshing(false);
   };
 
-  const seedDemo = async () => {
-    setSeedingDemo(true);
-    try {
-     
-      await load();
-    } finally {
-      setSeedingDemo(false);
-    }
-  };
+ 
 
   const handleLogout = async () => {
     await logout();
