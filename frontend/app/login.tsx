@@ -129,11 +129,31 @@ export default function LoginScreen() {
               </Text>
             </TouchableOpacity>
           </View>
-
-          <View style={styles.demoHint}>
-            <Text style={styles.demoText}>
-            </Text>
-          </View>
+<Text
+  style={{
+    textAlign: "center",
+    marginTop: 16,
+    fontSize: 12,
+    color: colors.textMuted,
+    lineHeight: 18,
+  }}
+>
+  By continuing, you agree to our{" "}
+  <Text
+    style={{ color: colors.brand }}
+    onPress={() => router.push("/terms-of-service")}
+  >
+    Terms of Service
+  </Text>
+  {" "}and{" "}
+  <Text
+    style={{ color: colors.brand }}
+    onPress={() => router.push("/privacy-policy")}
+  >
+    Privacy Policy
+  </Text>
+</Text>
+         
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -205,9 +225,4 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
     textAlign: "center",
   },
-  demoHint: {
-    marginTop: spacing.lg,
-    alignItems: "center",
-  },
-  demoText: { color: colors.textMuted, fontSize: 12, fontStyle: "italic" },
 });
