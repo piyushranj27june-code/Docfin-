@@ -91,7 +91,20 @@ export default function LoginScreen() {
                 {error}
               </Text>
             ) : null}
-
+  <TouchableOpacity
+  onPress={() => router.push("/forgot-password")}
+>
+  <Text
+    style={{
+      textAlign: "right",
+      marginTop: 10,
+      marginBottom: 10,
+      color: colors.brand,
+    }}
+  >
+    Forgot Password?
+  </Text>
+</TouchableOpacity>
             <TouchableOpacity
               testID="login-submit-button"
               style={[styles.primaryBtn, loading && { opacity: 0.7 }]}
