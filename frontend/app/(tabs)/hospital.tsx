@@ -273,7 +273,9 @@ const handleDeleteRevenue = async (id: string) => {
     onPress={() => handleDeleteRevenue(r.id)}
     style={{ padding: 8 }}
   >
-    <Text>🗑️</Text>
+    <Text style={{ fontSize: 22, color: "#dc2626", fontWeight: "bold" }}>
+  −
+</Text>
   </TouchableOpacity>
 </View>
                   <View style={styles.barWrap}>
@@ -384,7 +386,9 @@ const handleDeleteRevenue = async (id: string) => {
                        onPress={() => handleDeleteProductivity(p.id)}
                        style={{ marginTop: 8 }}
                      >
-                <Text>🗑️</Text>
+                <Text style={{ fontSize: 22, color: "#dc2626", fontWeight: "bold" }}>
+  −
+</Text>
              </TouchableOpacity>
           </View>
                 </View>
