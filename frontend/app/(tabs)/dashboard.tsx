@@ -93,6 +93,17 @@ export default function Dashboard() {
     router.replace("/login");
   };
 
+  const handleDeleteAccount = async () => {
+  if (!confirm("Delete your account permanently?")) return;
+
+  try {
+    await api.delete("/account");
+    await logout();
+    router.replace("/login");
+  } catch (err) {
+    alert("Failed to delete account");
+  }
+};
   if (loading) {
     return (
       <SafeAreaView style={styles.safe} edges={["top"]}>
