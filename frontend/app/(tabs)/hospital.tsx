@@ -104,7 +104,14 @@ export default function HospitalScreen() {
     await load();
     setRefreshing(false);
   };
-
+const handleDeleteRevenue = async (id: string) => {
+  try {
+    await api.delete(`/hospital/revenue/${id}`);
+    onRefresh();
+  } catch (err) {
+    alert("Failed to delete revenue");
+  }
+};
   if (loading) {
     return (
       <SafeAreaView style={styles.safe} edges={["top"]}>
