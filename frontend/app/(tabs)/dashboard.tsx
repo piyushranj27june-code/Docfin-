@@ -145,6 +145,15 @@ export default function Dashboard() {
           >
             <LogOut size={18} color={colors.textMuted} />
           </TouchableOpacity>
+
+          <TouchableOpacity
+  style={[styles.logoutBtn, { marginTop: 10 }]}
+  onPress={handleDeleteAccount}
+>
+  <Text style={{ color: "red", fontWeight: "bold" }}>
+    Delete Account
+  </Text>
+</TouchableOpacity>
         </View>
 
         {/* AI Insights Card */}
