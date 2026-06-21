@@ -242,10 +242,21 @@ export default function HospitalScreen() {
             ) : (
               revenue.map((r) => (
                 <View key={r.id} style={styles.revCard} testID={`revenue-${r.month}`}>
-                  <View style={styles.revHead}>
-                    <Text style={styles.revMonth}>{r.month}</Text>
-                    <Text style={styles.revTotal}>{formatINRFull(r.total_revenue)}</Text>
-                  </View>
+                 <View style={styles.revHead}>
+  <View>
+    <Text style={styles.revMonth}>{r.month}</Text>
+    <Text style={styles.revTotal}>
+      {formatINRFull(r.total_revenue)}
+    </Text>
+  </View>
+
+  <TouchableOpacity
+    onPress={() => handleDeleteRevenue(r.id)}
+    style={{ padding: 8 }}
+  >
+    <Text>🗑️</Text>
+  </TouchableOpacity>
+</View>
                   <View style={styles.barWrap}>
                     <View
                       style={[
