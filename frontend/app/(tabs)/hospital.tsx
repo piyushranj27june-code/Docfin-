@@ -371,7 +371,18 @@ const handleDeleteRevenue = async (id: string) => {
                       {p.patients_seen} patients · {p.hours_worked}h · {p.patients_per_hour}/hr
                     </Text>
                   </View>
-                  <Text style={styles.prodRev}>{formatINR(p.revenue_generated)}</Text>
+                  <View>
+                     <Text style={styles.prodRev}>
+                      {formatINR(p.revenue_generated)}
+                  </Text>
+
+                <TouchableOpacity
+                       onPress={() => handleDeleteProductivity(p.id)}
+                       style={{ marginTop: 8 }}
+                     >
+                <Text>🗑️</Text>
+             </TouchableOpacity>
+          </View>
                 </View>
               ))
             )}
