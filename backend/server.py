@@ -1018,7 +1018,17 @@ async def seed_demo(current_user: dict = Depends(get_current_user)):
         })
 
     return {"status": "seeded", "user_id": uid}
+    
+@api_router.delete("/account")
+async def delete_account(current_user: dict = Depends(get_current_user)):
+    user_id = current_user["id"]
 
+    await db.users.delete_one({"id": user_id})
+    await db.expenses.delete_many({"user_id": user_id})
+    await db.hospital_revenue.delete_many({"user_id": user_id})
+    await db.productivity.delete_many({"user_id": user_id})
+
+    return {"status": "account deleted"}
 # Register & middleware
 app.include_router(api_router)
 app.add_middleware(
