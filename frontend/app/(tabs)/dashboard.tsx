@@ -94,10 +94,8 @@ export default function Dashboard() {
   };
 
   const handleDeleteAccount = async () => {
-  if (!confirm("Delete your account permanently?")) return;
-
   try {
-    await api.delete("/account");
+  await api("/account", { method: "DELETE" });
     await logout();
     router.replace("/login");
   } catch (err) {
