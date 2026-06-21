@@ -8,22 +8,42 @@ export default function PrivacyPolicy() {
       </Text>
 
       <Text>
-        DocFin respects your privacy. We collect information such as your
-        account details and information you choose to provide while using the
-        application.
+     Last Updated: June 2026
 
-        {"\n\n"}
+{"\n\n"}Information We Collect
+{"\n"}• Name and account information
+{"\n"}• Email address
+{"\n"}• Hospital revenue and financial data
+{"\n"}• Expense records
+{"\n"}• Productivity records
+{"\n"}• AI queries submitted through the application
 
-        We use this information to provide services, improve the platform,
-        enable AI-powered features, and communicate important updates.
+{"\n\n"}How We Use Information
+{"\n"}• Provide and maintain DocFin services
+{"\n"}• Generate AI-powered insights
+{"\n"}• Improve platform functionality
+{"\n"}• Maintain user accounts
+{"\n"}• Provide customer support
 
-        {"\n\n"}
+{"\n\n"}Data Storage and Security
+{"\n"}Your information is stored securely using cloud databases and servers.
 
-        We do not sell your personal information.
+{"\n\n"}Data Sharing
+{"\n"}DocFin does not sell, rent, or trade personal information.
 
-        {"\n\n"}
+{"\n\n"}AI Services
+{"\n"}AI-powered features may use third-party AI providers to generate insights and recommendations.
 
-        By using DocFin, you agree to this Privacy Policy.
+{"\n\n"}Account Deletion
+{"\n"}Users can permanently delete their account from within the application.
+
+{"\n\n"}Changes to This Policy
+{"\n"}This policy may be updated periodically.
+
+{"\n\n"}Contact
+{"\n"}Email: piyushranj27june@gmail.com
+
+{"\n\n"}By using DocFin, you agree to this Privacy Policy.
       </Text>
     </ScrollView>
   );
