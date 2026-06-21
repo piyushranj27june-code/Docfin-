@@ -273,7 +273,20 @@ export default function Dashboard() {
           >
             <Text style={styles.quickBtnText}>+ Add Expense</Text>
           </TouchableOpacity>
-          
+
+          <TouchableOpacity
+  style={[
+    styles.quickBtn,
+    {
+      backgroundColor: "#dc2626",
+      marginTop: 12,
+    },
+  ]}
+  onPress={handleDeleteAccount}
+  activeOpacity={0.85}
+>
+  <Text style={styles.quickBtnText}>Delete Account</Text>
+</TouchableOpacity>
         </View>
 
         <View style={{ height: spacing.lg }} />
