@@ -112,6 +112,14 @@ const handleDeleteRevenue = async (id: string) => {
     alert("Failed to delete revenue");
   }
 };
+  const handleDeleteProductivity = async (id: string) => {
+  try {
+    await api.delete(`/hospital/productivity/${id}`);
+    onRefresh();
+  } catch (err) {
+    alert("Failed to delete productivity log");
+  }
+};
   if (loading) {
     return (
       <SafeAreaView style={styles.safe} edges={["top"]}>
