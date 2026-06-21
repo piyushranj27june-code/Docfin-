@@ -40,7 +40,7 @@ export default function PrivacyPolicy() {
 {"\n\n"}Changes to This Policy
 {"\n"}This policy may be updated periodically.
 
-{"\n\n"}Contact
+{"\n\n"}Contact +91-8679230528
 {"\n"}Email: piyushranj27june@gmail.com
 
 {"\n\n"}By using DocFin, you agree to this Privacy Policy.
