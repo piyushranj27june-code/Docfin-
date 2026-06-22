@@ -310,6 +310,27 @@ export default function PlanningScreen() {
           </View>
         )}
 
+        <TouchableOpacity
+  style={styles.calcBtn}
+  onPress={async () => {
+    try {
+      await api("/loans", {
+        method: "POST",
+        body: {
+          name: "My Loan",
+          principal: Number(principal),
+          rate: Number(rate),
+          tenure_months: Number(tenure),
+        }
+      });
+      alert("EMI saved to dashboard");
+    } catch (e) {
+      alert("Failed to save EMI");
+    }
+  }}
+>
+  <Text style={styles.calcBtnText}>Save EMI to Dashboard</Text>
+</TouchableOpacity>
         {tab === "sip" && (
           <View testID="sip-section">
             <View style={styles.formCard}>
