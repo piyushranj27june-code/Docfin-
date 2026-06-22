@@ -348,9 +348,12 @@ export default function PlanningScreen() {
   style={styles.calcBtn}
   onPress={async () => {
     try {
-      await api("/investments", {
-        method: "POST",
-        body: JSON.stringify({
+     await api("/investments", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
           name: "My SIP",
           type: "SIP",
           amount: Number(monthly) * 12,
