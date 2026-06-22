@@ -106,7 +106,7 @@ export default function HospitalScreen() {
   };
 const handleDeleteRevenue = async (id: string) => {
   try {
-    await api(/hospital/revenue/${id}, {
+    await api(`/hospital/revenue/${id}`, {
   method: "DELETE",
 });
     onRefresh();
@@ -116,7 +116,7 @@ const handleDeleteRevenue = async (id: string) => {
 };
   const handleDeleteProductivity = async (id: string) => {
   try {
-    await api(/hospital/productivity/${id}, {
+    await api(`/hospital/productivity/${id}`, {
   method: "DELETE",
 });
     onRefresh();
