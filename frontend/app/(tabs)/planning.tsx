@@ -350,17 +350,14 @@ export default function PlanningScreen() {
     try {
      await api("/investments", {
   method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-          name: "My SIP",
-          type: "SIP",
-          amount: Number(monthly) * 12,
-          monthly_contribution: Number(monthly),
-          expected_return: Number(sipRate),
-          current_value: sipResult?.future_value || 0
-        }),
+ body: {
+  name: "My SIP",
+  type: "SIP",
+  amount: Number(monthly) * 12,
+  monthly_contribution: Number(monthly),
+  expected_return: Number(sipRate),
+  current_value: sipResult?.future_value || 0
+},
       });
       alert("SIP saved to dashboard");
     } catch (e) {
