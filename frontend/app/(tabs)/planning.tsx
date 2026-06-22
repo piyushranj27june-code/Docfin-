@@ -357,7 +357,7 @@ export default function PlanningScreen() {
   monthly_contribution: Number(monthly),
   expected_return: Number(sipRate),
   current_value: sipResult?.future_value || 0
-},
+}
       });
       alert("SIP saved to dashboard");
     } catch (e) {
