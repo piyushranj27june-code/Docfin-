@@ -344,6 +344,29 @@ export default function PlanningScreen() {
           </View>
         )}
 
+        <TouchableOpacity
+  style={styles.calcBtn}
+  onPress={async () => {
+    try {
+      await api("/investments", {
+        method: "POST",
+        body: JSON.stringify({
+          name: "My SIP",
+          type: "SIP",
+          amount: Number(monthly) * 12,
+          monthly_contribution: Number(monthly),
+          expected_return: Number(sipRate),
+          current_value: sipResult?.future_value || 0
+        }),
+      });
+      alert("SIP saved to dashboard");
+    } catch (e) {
+      alert("Failed to save SIP");
+    }
+  }}
+>
+  <Text style={styles.calcBtnText}>Save SIP to Dashboard</Text>
+</TouchableOpacity>
         {tab === "tax" && (
           <View testID="tax-section">
             <View style={styles.formCard}>
