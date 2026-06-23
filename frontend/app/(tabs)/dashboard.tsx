@@ -147,26 +147,6 @@ export default function Dashboard() {
           
         </View>
 
-        <TouchableOpacity
-  onPress={() => setShowPasswordModal(true)}
-  style={{
-    backgroundColor: "#1e293b",
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 16,
-  }}
->
-  <Text
-    style={{
-      color: "white",
-      textAlign: "center",
-      fontWeight: "600",
-    }}
-  >
-    Change Password
-  </Text>
-</TouchableOpacity>
-
         {/* AI Insights Card */}
         <TouchableOpacity
           testID="ai-insights-card"
