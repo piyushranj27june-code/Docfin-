@@ -8,6 +8,8 @@ import {
   RefreshControl,
   ActivityIndicator,
   ImageBackground,
+  Modal,
+  TextInput,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
@@ -61,7 +63,12 @@ export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  
+
+const [showPasswordModal, setShowPasswordModal] = useState(false);
+
+const [currentPassword, setCurrentPassword] = useState("");
+const [newPassword, setNewPassword] = useState("");
+const [confirmPassword, setConfirmPassword] = useState("");
 
   const load = useCallback(async () => {
     try {
