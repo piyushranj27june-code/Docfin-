@@ -348,6 +348,30 @@ async def login(payload: UserLogin):
         )
     )
 
+@api_router.post("/auth/change-password")
+async def change_password(
+    payload: ChangePassword,
+    current_user: dict = Depends(get_current_user)
+):
+    user = await db.users.find_one({"id": current_user["id"]})
+
+    if not verify_password(payload.current_password, user["password"]):
+        raise HTTPException(
+            status_code=400,
+            detail="Wrong password"
+        )
+
+    await db.users.update_one(
+        {"id": current_user["id"]},
+        {
+            "$set": {
+                "password": hash_password(payload.new_password)
+            }
+        }
+    )
+
+    return {"message": "Password updated"}
+    
 @api_router.get("/auth/me", response_model=UserOut)
 async def me(current_user: dict = Depends(get_current_user)):
     return UserOut(
