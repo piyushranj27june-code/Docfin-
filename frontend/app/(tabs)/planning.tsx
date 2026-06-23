@@ -307,10 +307,7 @@ export default function PlanningScreen() {
                 <ResultRow label="Total Payable" value={formatINRFull(emiResult.total_payable)} />
               </View>
             )}
-          </View>
-        )}
-
-        <TouchableOpacity
+              <TouchableOpacity
   style={styles.calcBtn}
   onPress={async () => {
     try {
@@ -331,6 +328,10 @@ export default function PlanningScreen() {
 >
   <Text style={styles.calcBtnText}>Save EMI to Dashboard</Text>
 </TouchableOpacity>
+          </View>
+        )}
+
+      
         {tab === "sip" && (
           <View testID="sip-section">
             <View style={styles.formCard}>
