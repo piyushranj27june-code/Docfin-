@@ -317,10 +317,84 @@ const [confirmPassword, setConfirmPassword] = useState("");
         </View>
 
         <View style={{ height: spacing.lg }} />
+        <Modal
+  visible={showPasswordModal}
+  transparent
+  animationType="slide"
+>
+  <View
+    style={{
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "rgba(0,0,0,0.5)",
+    }}
+  >
+    <View
+      style={{
+        backgroundColor: "white",
+        width: "90%",
+        padding: 20,
+        borderRadius: 10,
+      }}
+    >
+      <Text style={{ fontSize: 18, marginBottom: 15 }}>
+        Change Password
+      </Text>
+
+      <TextInput
+        placeholder="Current Password"
+        secureTextEntry
+        value={currentPassword}
+        onChangeText={setCurrentPassword}
+        style={{
+          borderWidth: 1,
+          borderColor: "#ddd",
+          padding: 10,
+          marginBottom: 10,
+        }}
+      />
+
+      <TextInput
+        placeholder="New Password"
+        secureTextEntry
+        value={newPassword}
+        onChangeText={setNewPassword}
+        style={{
+          borderWidth: 1,
+          borderColor: "#ddd",
+          padding: 10,
+          marginBottom: 10,
+        }}
+      />
+
+      <TextInput
+        placeholder="Confirm Password"
+        secureTextEntry
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        style={{
+          borderWidth: 1,
+          borderColor: "#ddd",
+          padding: 10,
+          marginBottom: 15,
+        }}
+      />
+
+      <TouchableOpacity
+        onPress={() => setShowPasswordModal(false)}
+      >
+        <Text>Close</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
+
       </ScrollView>
     </SafeAreaView>
   );
 }
+
 
 function StatCard({
   icon,
