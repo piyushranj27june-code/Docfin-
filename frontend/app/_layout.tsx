@@ -17,7 +17,7 @@ export default function RootLayout() {
    if (loaded || error) {
   setTimeout(() => {
     SplashScreen.hideAsync();
-  }, 1500);
+  }, 1000);
 }
   }, [loaded, error]);
 
