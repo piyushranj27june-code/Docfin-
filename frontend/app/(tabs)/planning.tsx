@@ -363,10 +363,7 @@ export default function PlanningScreen() {
                 />
               </View>
             )}
-          </View>
-        )}
-
-        <TouchableOpacity
+              <TouchableOpacity
   style={styles.calcBtn}
   onPress={async () => {
     try {
@@ -389,6 +386,9 @@ export default function PlanningScreen() {
 >
   <Text style={styles.calcBtnText}>Save SIP to Dashboard</Text>
 </TouchableOpacity>
+          </View>
+        )}
+    
         {tab === "tax" && (
           <View testID="tax-section">
             <View style={styles.formCard}>
