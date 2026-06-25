@@ -206,6 +206,8 @@ const [isEditingSip, setIsEditingSip] = useState(false);
       try {
         const loans = await api<Loan[]>("/loans");
         setUserLoans(loans || []);
+        const investments = await api<any[]>("/investments");
+setSavedInvestments(investments || []);
       } catch {
         // not logged in / no loans - silently ignore
       }
