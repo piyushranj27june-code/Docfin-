@@ -352,7 +352,9 @@ const [isEditing, setIsEditing] = useState(false);
 }
   }}
 >
-  <Text style={styles.calcBtnText}>Save EMI to Dashboard</Text>
+  <Text style={styles.calcBtnText}>
+  {isEditing ? "Update EMI" : "Save EMI to Dashboard"}
+</Text>
 </TouchableOpacity>
           </View>
         )}
