@@ -75,6 +75,10 @@ export default function PlanningScreen() {
   const [emiResult, setEmiResult] = useState<EMIResult | null>(null);
   const [emiLoading, setEmiLoading] = useState(false);
 
+const [savedLoans, setSavedLoans] = useState<Loan[]>([]);
+const [editingLoanId, setEditingLoanId] = useState<string | null>(null);
+const [isEditing, setIsEditing] = useState(false);
+
   // SIP
   const [monthly, setMonthly] = useState("10000");
   const [years, setYears] = useState("15");
