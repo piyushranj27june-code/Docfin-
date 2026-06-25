@@ -368,6 +368,32 @@ setSavedInvestments(investments || []);
         {tab === "sip" && (
           <View testID="sip-section">
             <View style={styles.formCard}>
+              {savedInvestments.length > 0 && (
+  <View style={{ marginBottom: spacing.md }}>
+    <Text style={styles.helperLabel}>Quick-select saved SIP</Text>
+
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      {savedInvestments.map((i) => (
+        <TouchableOpacity
+          key={i.id}
+          style={styles.loanPill}
+          onPress={() => {
+    setEditingInvestmentId(i.id);
+    setIsEditingInvestment(true);
+
+    setMonthly(String(i.monthly_contribution));
+    setSipRate(String(i.expected_return));
+}
+        >
+          <Text style={styles.loanPillName}>{i.name}</Text>
+          <Text style={styles.loanPillMeta}>
+            ₹{formatINR(i.monthly_contribution)} • {i.expected_return}%
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
+  </View>
+)}
               <Field label="Monthly Investment (₹)" value={monthly} onChange={setMonthly} testID="sip-monthly-input" />
               <Field label="Duration (years)" value={years} onChange={setYears} testID="sip-years-input" />
               <Field label="Expected Return (%)" value={sipRate} onChange={setSipRate} testID="sip-rate-input" />
@@ -400,8 +426,12 @@ setSavedInvestments(investments || []);
   style={styles.calcBtn}
   onPress={async () => {
     try {
-     await api("/investments", {
-  method: "POST",
+    await api(
+  isEditingInvestment
+    ? `/investments/${editingInvestmentId}`
+    : "/investments",
+{
+  method: isEditingInvestment ? "PUT" : "POST",
  body: {
   name: "My SIP",
   type: "SIP",
@@ -411,13 +441,21 @@ setSavedInvestments(investments || []);
   current_value: sipResult?.future_value || 0
 }
       });
-      alert("SIP saved to dashboard");
+      setIsEditingInvestment(false);
+setEditingInvestmentId(null);
+alert(
+  isEditingInvestment
+    ? "SIP updated successfully"
+    : "SIP saved to dashboard"
+);
     } catch (e) {
       alert("Failed to save SIP");
     }
   }}
 >
-  <Text style={styles.calcBtnText}>Save SIP to Dashboard</Text>
+ <Text style={styles.calcBtnText}>
+  {isEditingInvestment ? "Update SIP" : "Save SIP to Dashboard"}
+</Text>
 </TouchableOpacity>
           </View>
         )}
