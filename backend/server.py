@@ -562,6 +562,31 @@ async def delete_investment(inv_id: str, current_user: dict = Depends(get_curren
         raise HTTPException(status_code=404, detail="Not found")
     return {"status": "deleted"}
 
+@api_router.put("/investments/{investment_id}", response_model=Investment)
+async def update_investment(
+    investment_id: str,
+    payload: InvestmentCreate,
+    current_user: dict = Depends(get_current_user),
+):
+    update = {
+        "name": payload.name,
+        "monthly_amount": payload.monthly_amount,
+        "annual_return_pct": payload.annual_return_pct,
+        "years": payload.years,
+    }
+
+    result = await db.investments.find_one_and_update(
+        {"id": investment_id, "user_id": current_user["id"]},
+        {"$set": update},
+        return_document=True,
+    )
+
+    if not result:
+        raise HTTPException(status_code=404, detail="Investment not found")
+
+    result.pop("_id", None)
+    return Investment(**{k: result.get(k) for k in Investment.model_fields.keys()})
+
 @api_router.post("/investments/sip-calc")
 async def sip_calculator(monthly: float, years: int, rate: float):
     """Future value of SIP."""
