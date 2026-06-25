@@ -315,19 +315,41 @@ const [isEditing, setIsEditing] = useState(false);
   style={styles.calcBtn}
   onPress={async () => {
     try {
-      await api("/loans", {
-        method: "POST",
-        body: {
-          name: "My Loan",
-          principal: Number(principal),
-          rate: Number(rate),
-          tenure_months: Number(tenure),
-        }
-      });
-      alert("EMI saved to dashboard");
-    } catch (e) {
-      alert("Failed to save EMI");
-    }
+  if (isEditing) {
+    await api(/loans/${editingLoanId}, {
+      method: "PUT",
+      body: {
+        name: "My Loan",
+        principal: Number(principal),
+        rate: Number(rate),
+        tenure_months: Number(tenure),
+      },
+    });
+
+    alert("EMI updated successfully");
+    setIsEditing(false);
+    setEditingLoanId(null);
+
+  } else {
+    await api("/loans", {
+      method: "POST",
+      body: {
+        name: "My Loan",
+        principal: Number(principal),
+        rate: Number(rate),
+        tenure_months: Number(tenure),
+      },
+    });
+
+    alert("EMI saved to dashboard");
+  }
+
+  const loans = await api<Loan[]>("/loans");
+  setUserLoans(loans || []);
+
+} catch (e) {
+  alert("Failed to save EMI");
+}
   }}
 >
   <Text style={styles.calcBtnText}>Save EMI to Dashboard</Text>
@@ -471,9 +493,24 @@ const [isEditing, setIsEditing] = useState(false);
                       style={styles.loanPill}
                     >
                       <Text style={styles.loanPillName}>{l.name}</Text>
-                      <Text style={styles.loanPillMeta}>
-                        {formatINR(l.principal)} · {l.rate}% · {l.tenure_months}mo
-                      </Text>
+                     <Text style={styles.loanPillMeta}>
+  {formatINR(l.principal)} • {l.rate}% • {l.tenure_months}mo
+</Text>
+
+<TouchableOpacity
+  onPress={() => {
+    setPrincipal(String(l.principal));
+    setRate(String(l.rate));
+    setTenure(String(l.tenure_months));
+    setEditingLoanId(l.id);
+    setIsEditing(true);
+    setTab("loan");
+  }}
+>
+  <Text style={{ color: "#2563eb", marginTop: 6, fontWeight: "600" }}>
+    ✏️ Edit
+  </Text>
+</TouchableOpacity>
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
