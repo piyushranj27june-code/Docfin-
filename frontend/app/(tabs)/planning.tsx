@@ -86,6 +86,9 @@ const [isEditing, setIsEditing] = useState(false);
   const [sipResult, setSipResult] = useState<SIPResult | null>(null);
   const [sipLoading, setSipLoading] = useState(false);
 
+  const [editingInvestmentId, setEditingInvestmentId] = useState<string | null>(null);
+const [isEditingSip, setIsEditingSip] = useState(false);
+
   // Tax
   const [income, setIncome] = useState("1800000");
   const [d80c, setD80c] = useState("150000");
