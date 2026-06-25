@@ -502,6 +502,36 @@ async def delete_loan(loan_id: str, current_user: dict = Depends(get_current_use
         raise HTTPException(status_code=404, detail="Not found")
     return {"status": "deleted"}
 
+@api_router.put("/loans/{loan_id}", response_model=Loan)
+async def update_loan(
+    loan_id: str,
+    payload: LoanCreate,
+    current_user: dict = Depends(get_current_user),
+):
+    emi_data = calc_emi(payload.principal, payload.rate, payload.tenure_months)
+
+    update = {
+        "name": payload.name,
+        "principal": payload.principal,
+        "rate": payload.rate,
+        "tenure_months": payload.tenure_months,
+        "emi": emi_data["emi"],
+        "total_interest": emi_data["total_interest"],
+        "total_payable": emi_data["total_payable"],
+    }
+
+    result = await db.loans.find_one_and_update(
+        {"id": loan_id, "user_id": current_user["id"]},
+        {"$set": update},
+        return_document=True,
+    )
+
+    if not result:
+        raise HTTPException(status_code=404, detail="Loan not found")
+
+    result.pop("_id", None)
+    return Loan(**{k: result.get(k) for k in Loan.model_fields.keys()})
+
 # --- Investments ---
 @api_router.post("/investments", response_model=Investment)
 async def add_investment(payload: InvestmentCreate, current_user: dict = Depends(get_current_user)):
