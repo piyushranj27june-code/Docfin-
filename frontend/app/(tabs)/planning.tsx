@@ -88,6 +88,8 @@ const [isEditing, setIsEditing] = useState(false);
 
   const [editingInvestmentId, setEditingInvestmentId] = useState<string | null>(null);
 const [isEditingSip, setIsEditingSip] = useState(false);
+  const [savedInvestments, setSavedInvestments] = useState<any[]>([]);
+const [isEditingInvestment, setIsEditingInvestment] = useState(false);
 
   // Tax
   const [income, setIncome] = useState("1800000");
