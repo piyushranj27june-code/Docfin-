@@ -15,7 +15,7 @@ export default function ForgotPassword() {
  const handleReset = async () => {
   try {
     const response = await fetch(
-      "https://docfin-app-production.up.railway.app/auth/forgot-password",
+      "https://docfin-app-production.up.railway.app/api/auth/forgot-password",
       {
         method: "POST",
         headers: {
