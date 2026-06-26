@@ -449,6 +449,8 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
   current_value: sipResult?.future_value || 0
 }
       });
+      const investments = await api<any[]>("/investments");
+setSavedInvestments(investments || []);
       setIsEditingInvestment(false);
 setEditingInvestmentId(null);
 alert(
