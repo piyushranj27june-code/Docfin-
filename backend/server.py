@@ -659,7 +659,7 @@ async def update_investment(
 ):
     update = {
         "name": payload.name,
-        "monthly_amount": payload.monthly_amount,
+        "monthly_contribution": payload.monthly_contribution,
         "annual_return_pct": payload.annual_return_pct,
         "years": payload.years,
     }
