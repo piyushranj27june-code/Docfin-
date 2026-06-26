@@ -432,6 +432,8 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
   style={styles.calcBtn}
   onPress={async () => {
     try {
+      console.log("isEditingInvestment:", isEditingInvestment);
+      console.log("editingInvestmentId:", editingInvestmentId);
     await api(
   isEditingInvestment
     ? `/investments/${editingInvestmentId}`
