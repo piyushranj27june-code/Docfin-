@@ -658,11 +658,13 @@ async def update_investment(
     current_user: dict = Depends(get_current_user),
 ):
     update = {
-        "name": payload.name,
-        "monthly_contribution": payload.monthly_contribution,
-        "annual_return_pct": payload.annual_return_pct,
-        "years": payload.years,
-    }
+    "name": payload.name,
+    "type": payload.type,
+    "amount": payload.amount,
+    "monthly_contribution": payload.monthly_contribution,
+    "expected_return": payload.expected_return,
+    "current_value": payload.current_value,
+}
 
     result = await db.investments.find_one_and_update(
         {"id": investment_id, "user_id": current_user["id"]},
