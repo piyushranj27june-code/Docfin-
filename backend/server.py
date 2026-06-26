@@ -53,8 +53,10 @@ class ChangePassword(BaseModel):
     current_password: str
     new_password: str
 
-    class ForgotPasswordRequest(BaseModel):
+
+class ForgotPasswordRequest(BaseModel):
     email: EmailStr
+
 
 class ResetPasswordRequest(BaseModel):
     email: EmailStr
