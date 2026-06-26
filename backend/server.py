@@ -212,6 +212,22 @@ def verify_password(pw: str, hashed: str) -> bool:
     except Exception:
         return False
 
+def send_email(to_email: str, subject: str, body: str):
+    sender = os.getenv("EMAIL_USER")
+    password = os.getenv("EMAIL_PASSWORD")
+
+    msg = MIMEMultipart()
+    msg["From"] = sender
+    msg["To"] = to_email
+    msg["Subject"] = subject
+    msg.attach(MIMEText(body, "plain"))
+
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login(sender, password)
+    server.send_message(msg)
+    server.quit()
+
 def create_token(user_id: str) -> str:
     payload = {
         "sub": user_id,
