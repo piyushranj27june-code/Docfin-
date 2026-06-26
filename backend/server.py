@@ -399,6 +399,65 @@ async def change_password(
     )
 
     return {"message": "Password updated"}
+
+@api_router.post("/auth/forgot-password")
+async def forgot_password(payload: ForgotPasswordRequest):
+    user = await db.users.find_one({"email": payload.email.lower()})
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    otp = str(random.randint(100000, 999999))
+
+    await db.password_resets.update_one(
+        {"email": payload.email.lower()},
+        {
+            "$set": {
+                "email": payload.email.lower(),
+                "otp": otp,
+                "expires_at": datetime.utcnow() + timedelta(minutes=10)
+            }
+        },
+        upsert=True
+    )
+
+    send_email(
+        payload.email,
+        "DocFin Password Reset OTP",
+        f"Your DocFin OTP is {otp}. It is valid for 10 minutes."
+    )
+
+    return {"message": "OTP sent successfully"}
+
+@api_router.post("/auth/reset-password")
+async def reset_password(payload: ResetPasswordRequest):
+    record = await db.password_resets.find_one({
+        "email": payload.email.lower()
+    })
+
+    if not record:
+        raise HTTPException(status_code=400, detail="No OTP found")
+
+    if record["otp"] != payload.otp:
+        raise HTTPException(status_code=400, detail="Invalid OTP")
+
+    if datetime.utcnow() > record["expires_at"]:
+        raise HTTPException(status_code=400, detail="OTP expired")
+
+    await db.users.update_one(
+        {"email": payload.email.lower()},
+        {
+            "$set": {
+                "password": hash_password(payload.new_password)
+            }
+        }
+    )
+
+    await db.password_resets.delete_one({
+        "email": payload.email.lower()
+    })
+
+    return {"message": "Password reset successful"}
     
 @api_router.get("/auth/me", response_model=UserOut)
 async def me(current_user: dict = Depends(get_current_user)):
