@@ -208,8 +208,12 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
       try {
         const loans = await api<Loan[]>("/loans");
         setUserLoans(loans || []);
-        const investments = await api<any[]>("/investments");
-setSavedInvestments(investments || []);
+        try {
+  const investments = await api<any[]>("/investments");
+  setSavedInvestments(investments || []);
+} catch {
+  setSavedInvestments([]);
+}
       } catch {
         // not logged in / no loans - silently ignore
       }
