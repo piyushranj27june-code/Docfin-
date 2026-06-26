@@ -12,10 +12,36 @@ export default function ForgotPassword() {
   const router = useRouter();
   const [email, setEmail] = useState("");
 
-  const handleReset = () => {
-    alert("Password reset feature coming soon.");
-  };
+ const handleReset = async () => {
+  try {
+    const response = await fetch(
+      "https://docfin-app-production.up.railway.app/auth/forgot-password",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+        }),
+      }
+    );
 
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("OTP sent to your email.");
+      router.push({
+        pathname: "/reset-password",
+        params: { email },
+      });
+    } else {
+      alert(data.detail || "Something went wrong");
+    }
+  } catch (error) {
+    alert("Unable to connect to server.");
+  }
+};
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Forgot Password</Text>
