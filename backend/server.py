@@ -4,6 +4,10 @@ from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
+import smtplib
+import random
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 import logging
 import uuid
 import bcrypt
