@@ -321,7 +321,7 @@ setSavedInvestments(investments || []);
   onPress={async () => {
     try {
   if (isEditing) {
-    await api(/loans/${editingLoanId}, {
+    await api(`/loans/${editingLoanId}`, {
       method: "PUT",
       body: {
         name: "My Loan",
@@ -383,7 +383,7 @@ setSavedInvestments(investments || []);
 
     setMonthly(String(i.monthly_contribution));
     setSipRate(String(i.expected_return));
-}
+}}
         >
           <Text style={styles.loanPillName}>{i.name}</Text>
           <Text style={styles.loanPillMeta}>
