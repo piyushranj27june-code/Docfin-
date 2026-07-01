@@ -19,7 +19,7 @@ export default function ResetPassword() {
   const handleReset = async () => {
     try {
       const response = await fetch(
-        "https://docfin-app-production.up.railway.app/auth/reset-password",
+        "https://docfin-app-production.up.railway.app/api/auth/reset-password",
         {
           method: "POST",
           headers: {
