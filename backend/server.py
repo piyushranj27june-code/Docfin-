@@ -1,13 +1,12 @@
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
-import smtplib
 import random
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 import logging
 import uuid
 import bcrypt
@@ -223,20 +222,19 @@ def verify_password(pw: str, hashed: str) -> bool:
         return False
 
 def send_email(to_email: str, subject: str, body: str):
-    sender = os.getenv("EMAIL_USER")
-    password = os.getenv("EMAIL_PASSWORD")
+    message = Mail(
+        from_email=os.getenv("EMAIL_USER"),
+        to_emails=to_email,
+        subject=subject,
+        plain_text_content=body,
+    )
 
-    msg = MIMEMultipart()
-    msg["From"] = sender
-    msg["To"] = to_email
-    msg["Subject"] = subject
-    msg.attach(MIMEText(body, "plain"))
-
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login(sender, password)
-    server.send_message(msg)
-    server.quit()
+    try:
+        sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
+        sg.send(message)
+    except Exception as e:
+        print(f"SendGrid Error: {e}")
+        raise
 
 def create_token(user_id: str) -> str:
     payload = {
