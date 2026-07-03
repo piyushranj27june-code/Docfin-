@@ -321,20 +321,20 @@ async def ai_chat(system_msg: str, user_text: str, session_id: str) -> str:
     if not api_key:
         return "DEEPSEEK API key not configured."
 
-   client = OpenAI(
-    api_key=api_key,
-    base_url="https://api.deepseek.com"
-)
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://api.deepseek.com"
+    )
 
-   response = client.chat.completions.create(
-    model="deepseek-chat",
-    messages=[
-        {"role": "system", "content": system_msg},
-        {"role": "user", "content": user_text}
-    ]
-)
+    response = client.chat.completions.create(
+        model="deepseek-chat",
+        messages=[
+            {"role": "system", "content": system_msg},
+            {"role": "user", "content": user_text}
+        ]
+    )
 
-return response.choices[0].message.content
+    return response.choices[0].message.content
 # ---------- Routes ----------
 
 @api_router.get("/")
