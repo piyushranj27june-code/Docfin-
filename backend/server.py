@@ -316,20 +316,25 @@ def _slab_tax(taxable: float, slabs) -> float:
     return tax
 
 async def ai_chat(system_msg: str, user_text: str, session_id: str) -> str:
-    api_key = os.getenv("GEMINI_API_KEY")
+    api_key = os.getenv("DEEPSEEK_API_KEY")
 
     if not api_key:
-        return "Gemini API key not configured."
+        return "DEEPSEEK API key not configured."
 
-    genai.configure(api_key=api_key)
+   client = OpenAI(
+    api_key=api_key,
+    base_url="https://api.deepseek.com"
+)
 
-    model = genai.GenerativeModel("gemini-2.5-flash")
+   response = client.chat.completions.create(
+    model="deepseek-chat",
+    messages=[
+        {"role": "system", "content": system_msg},
+        {"role": "user", "content": user_text}
+    ]
+)
 
-    prompt = f"{system_msg}\n\n{user_text}"
-
-    response = model.generate_content(prompt)
-
-    return response.text
+return response.choices[0].message.content
 # ---------- Routes ----------
 
 @api_router.get("/")
