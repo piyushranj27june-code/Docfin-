@@ -604,7 +604,7 @@ alert(
   }}
 >
  <Text style={styles.calcBtnText}>
-  {isEditingInvestment ? "Update SIP" : "Save SIP to Dashboard"}
+  {isEditingInvestment ? "Update Saved SIP" : "Save SIP to Dashboard"}
 </Text>
 </TouchableOpacity>
             <TouchableOpacity
