@@ -8,6 +8,7 @@ import {
   TextInput,
   ActivityIndicator,
   RefreshControl,
+  Modal,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Calculator, FileText, PiggyBank, Scale } from "@/src/icons";
@@ -78,6 +79,7 @@ export default function PlanningScreen() {
 const [savedLoans, setSavedLoans] = useState<Loan[]>([]);
 const [editingLoanId, setEditingLoanId] = useState<string | null>(null);
 const [isEditing, setIsEditing] = useState(false);
+const [showLoanModal, setShowLoanModal] = useState(false);
 
   // SIP
   const [monthly, setMonthly] = useState("10000");
@@ -366,6 +368,28 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
   <Text style={styles.calcBtnText}>
   {isEditing ? "Update EMI" : "Save EMI to Dashboard"}
 </Text>
+</TouchableOpacity>
+            <TouchableOpacity
+  style={[
+    styles.calcBtn,
+    {
+      backgroundColor: "#fff",
+      borderWidth: 1,
+      borderColor: colors.brand,
+      marginTop: 10,
+    },
+  ]}
+  onPress={() => setShowLoanModal(true)}
+>
+  <Text
+    style={{
+      color: colors.brand,
+      fontSize: 15,
+      fontWeight: "700",
+    }}
+  >
+    Edit Saved EMI
+  </Text>
 </TouchableOpacity>
           </View>
         )}
