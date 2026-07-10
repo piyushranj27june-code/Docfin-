@@ -598,6 +598,14 @@ alert(
     ? "SIP updated successfully"
     : "SIP saved to dashboard"
 );
+      setIsEditingInvestment(false);
+setEditingInvestmentId(null);
+
+setMonthly("");
+setYears("");
+setSipRate("");
+setSipResult(null);
+      
     } catch (e) {
       alert("Failed to save SIP");
     }
