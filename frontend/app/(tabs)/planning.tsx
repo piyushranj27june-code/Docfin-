@@ -631,7 +631,109 @@ alert(
 </TouchableOpacity>
           </View>
         )}
-    
+
+        <Modal
+  visible={showSipModal}
+  animationType="slide"
+  transparent
+  onRequestClose={() => setShowSipModal(false)}
+>
+  <View
+    style={{
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.5)",
+      justifyContent: "flex-end",
+    }}
+  >
+    <View
+      style={{
+        backgroundColor: "#fff",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 20,
+        maxHeight: "70%",
+      }}
+    >
+      <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 15 }}>
+        Saved SIPs
+      </Text>
+
+      <ScrollView>
+        {savedInvestments.length === 0 ? (
+          <Text>No saved SIPs found.</Text>
+        ) : (
+          savedInvestments.map((sip) => (
+            <View
+              key={sip.id}
+              style={{
+                borderBottomWidth: 1,
+                borderBottomColor: "#eee",
+                paddingVertical: 12,
+              }}
+            >
+              <Text style={{ fontWeight: "bold" }}>{sip.name}</Text>
+              <Text>Monthly: ₹{formatINR(sip.monthly_contribution)}</Text>
+              <Text>Return: {sip.expected_return}%</Text>
+
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginTop: 10,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => {
+                    setMonthly(String(sip.monthly_contribution));
+                    setSipRate(String(sip.expected_return));
+                    setEditingInvestmentId(sip.id);
+                    setIsEditingInvestment(true);
+                    setShowSipModal(false);
+                  }}
+                >
+                  <Text style={{ color: "#2563eb", fontWeight: "700" }}>
+                    ✏️ Edit
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={async () => {
+                    try {
+                      await api(/investments/${sip.id}, {
+                        method: "DELETE",
+                      });
+
+                      const investments = await api<any[]>("/investments");
+                      setSavedInvestments(investments || []);
+
+                      setShowSipModal(false);
+
+                      alert("SIP deleted successfully");
+                    } catch {
+                      alert("Failed to delete SIP");
+                    }
+                  }}
+                >
+                  <Text style={{ color: "red", fontWeight: "700" }}>
+                    🗑️ Delete
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))
+        )}
+      </ScrollView>
+
+      <TouchableOpacity
+        style={styles.calcBtn}
+        onPress={() => setShowSipModal(false)}
+      >
+        <Text style={styles.calcBtnText}>Close</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
+        
         {tab === "tax" && (
           <View testID="tax-section">
             <View style={styles.formCard}>
