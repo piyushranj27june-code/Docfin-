@@ -210,6 +210,7 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
       try {
         const loans = await api<Loan[]>("/loans");
         setUserLoans(loans || []);
+        setShowLoanModal(false);
         try {
   const investments = await api<any[]>("/investments");
   setSavedInvestments(investments || []);
@@ -366,7 +367,7 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
   }}
 >
   <Text style={styles.calcBtnText}>
-  {isEditing ? "Update EMI" : "Save EMI to Dashboard"}
+  {isEditing ? "Update Saved EMI" : "Save EMI to Dashboard"}
 </Text>
 </TouchableOpacity>
             <TouchableOpacity
@@ -467,9 +468,22 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => {
-              alert("Delete will be added next.");
-            }}
+           onPress={async () => {
+  try {
+    await api(/loans/${loan.id}, {
+      method: "DELETE",
+    });
+
+    const loans = await api<Loan[]>("/loans");
+    setUserLoans(loans || []);
+
+    setShowLoanModal(false);
+
+    alert("EMI deleted successfully");
+  } catch (e) {
+    alert("Failed to delete EMI");
+  }
+}}
           >
             <Text style={{ color: "red", fontWeight: "700" }}>
               🗑️ Delete
