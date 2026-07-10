@@ -135,12 +135,6 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
     }
   }, [prePrincipal, preRate, preTenure, preLumpSum, preInvestReturn]);
 
-  const selectLoan = (loan: Loan) => {
-    setPrePrincipal(String(loan.principal));
-    setPreRate(String(loan.rate));
-    setPreTenure(String(loan.tenure_months));
-  };
-
   const calcEMI = useCallback(async () => {
     setEmiLoading(true);
     try {
@@ -807,43 +801,6 @@ setSipResult(null);
 
         {tab === "prepay" && (
           <View testID="prepay-section">
-            {userLoans.length > 0 && (
-              <View style={{ marginBottom: spacing.md }}>
-                <Text style={styles.helperLabel}>Quick-select from your loans</Text>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8, paddingRight: spacing.md }}>
-                  {userLoans.map((l) => (
-                    <TouchableOpacity
-                      key={l.id}
-                      testID={`prepay-loan-${l.id}`}
-                      onPress={() => selectLoan(l)}
-                      activeOpacity={0.85}
-                      style={styles.loanPill}
-                    >
-                      <Text style={styles.loanPillName}>{l.name}</Text>
-                     <Text style={styles.loanPillMeta}>
-  {formatINR(l.principal)} • {l.rate}% • {l.tenure_months}mo
-</Text>
-
-<TouchableOpacity
-  onPress={() => {
-    setPrincipal(String(l.principal));
-    setRate(String(l.rate));
-    setTenure(String(l.tenure_months));
-    setEditingLoanId(l.id);
-    setIsEditing(true);
-    setTab("loan");
-  }}
->
-  <Text style={{ color: "#2563eb", marginTop: 6, fontWeight: "600" }}>
-    ✏️ Edit
-  </Text>
-</TouchableOpacity>
-                    </TouchableOpacity>
-                  ))}
-                </ScrollView>
-              </View>
-            )}
-
             <View style={styles.formCard}>
               <Field
                 label="Remaining Principal (₹)"
