@@ -606,6 +606,28 @@ alert(
   {isEditingInvestment ? "Update SIP" : "Save SIP to Dashboard"}
 </Text>
 </TouchableOpacity>
+            <TouchableOpacity
+  style={[
+    styles.calcBtn,
+    {
+      backgroundColor: "#fff",
+      borderWidth: 1,
+      borderColor: colors.brand,
+      marginTop: 10,
+    },
+  ]}
+  onPress={() => setShowSipModal(true)}
+>
+  <Text
+    style={{
+      color: colors.brand,
+      fontSize: 15,
+      fontWeight: "700",
+    }}
+  >
+    Edit Saved SIP
+  </Text>
+</TouchableOpacity>
           </View>
         )}
     
