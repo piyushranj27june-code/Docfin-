@@ -91,6 +91,7 @@ const [showLoanModal, setShowLoanModal] = useState(false);
   const [editingInvestmentId, setEditingInvestmentId] = useState<string | null>(null);
 const [isEditingSip, setIsEditingSip] = useState(false);
   const [savedInvestments, setSavedInvestments] = useState<any[]>([]);
+  const [showSipModal, setShowSipModal] = useState(false);
 const [isEditingInvestment, setIsEditingInvestment] = useState(false);
 
   // Tax
