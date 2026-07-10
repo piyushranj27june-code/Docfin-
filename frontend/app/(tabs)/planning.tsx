@@ -344,6 +344,11 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
     setIsEditing(false);
     setEditingLoanId(null);
 
+    setPrincipal("");
+    setRate("");
+    setTenure("");
+    setEmiResult(null);
+
   } else {
     await api("/loans", {
       method: "POST",
