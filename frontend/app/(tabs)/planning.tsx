@@ -394,7 +394,103 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
           </View>
         )}
 
-      
+<Modal
+  visible={showLoanModal}
+  animationType="slide"
+  transparent
+  onRequestClose={() => setShowLoanModal(false)}
+>
+  <View
+    style={{
+      flex: 1,
+      backgroundColor: "rgba(0,0,0,0.5)",
+      justifyContent: "flex-end",
+    }}
+  >
+    <View
+      style={{
+        backgroundColor: "#fff",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: 20,
+        maxHeight: "70%",
+      }}
+    >
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginBottom: 15,
+        }}
+      >
+        Saved EMIs
+      </Text>
+
+      <ScrollView>
+  {userLoans.length === 0 ? (
+    <Text>No saved EMIs found.</Text>
+  ) : (
+    userLoans.map((loan) => (
+      <View
+        key={loan.id}
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: "#eee",
+          paddingVertical: 12,
+        }}
+      >
+        <Text style={{ fontWeight: "bold" }}>{loan.name}</Text>
+        <Text>Principal: ₹{formatINR(loan.principal)}</Text>
+        <Text>Rate: {loan.rate}%</Text>
+        <Text>Tenure: {loan.tenure_months} months</Text>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 10,
+          }}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              setPrincipal(String(loan.principal));
+              setRate(String(loan.rate));
+              setTenure(String(loan.tenure_months));
+              setEditingLoanId(loan.id);
+              setIsEditing(true);
+              setShowLoanModal(false);
+            }}
+          >
+            <Text style={{ color: "#2563eb", fontWeight: "700" }}>
+              ✏️ Edit
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() => {
+              alert("Delete will be added next.");
+            }}
+          >
+            <Text style={{ color: "red", fontWeight: "700" }}>
+              🗑️ Delete
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    ))
+  )}
+</ScrollView>
+
+      <TouchableOpacity
+        style={[styles.calcBtn, { marginTop: 15 }]}
+        onPress={() => setShowLoanModal(false)}
+      >
+        <Text style={styles.calcBtnText}>Close</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
+        
         {tab === "sip" && (
           <View testID="sip-section">
             <View style={styles.formCard}>
