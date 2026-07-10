@@ -470,7 +470,7 @@ const [isEditingInvestment, setIsEditingInvestment] = useState(false);
           <TouchableOpacity
            onPress={async () => {
   try {
-    await api(/loans/${loan.id}, {
+    await api(`/loans/${loan.id}`, {
       method: "DELETE",
     });
 
@@ -701,7 +701,7 @@ setSipResult(null);
                 <TouchableOpacity
                   onPress={async () => {
                     try {
-                      await api(/investments/${sip.id}, {
+                      await api(`/investments/${sip.id}`, {
                         method: "DELETE",
                       });
 
