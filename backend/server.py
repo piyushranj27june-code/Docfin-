@@ -327,7 +327,7 @@ async def ai_chat(system_msg: str, user_text: str, session_id: str) -> str:
     )
 
     response = client.chat.completions.create(
-        model="deepseek-chat",
+        model="deepseek-v4-flash",
         messages=[
             {"role": "system", "content": system_msg},
             {"role": "user", "content": user_text}
